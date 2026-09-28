@@ -20,12 +20,15 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
 - [x] **Modely:** `Task` a `User`.
 - [x] **Eloquent relácie:** `Task` patrí k `creator` a `assignee` (User); `User` má `createdTasks` a `assignedTasks`.
 - [x] **Factories a Seeders:** `TaskFactory`, `UserFactory`, `DatabaseSeeder` (vytvára používateľa Martin Cvinček, 3 kolegov a 10 pridelených úloh).
+- [x] **TaskController @ index:** metóda `index()` s Eager Loadingom (`Task::with(['creator', 'assignee'])->get()`).
+- [x] **Routing:** zaregistrovaná pomenovaná routa `tasks.index` v `routes/web.php`.
+- [x] **Blade View:** základná šablóna `resources/views/tasks/index.blade.php` s výpisom úloh a relácií.
 
-### Na čom AKTUÁLNE pracujeme:
-- [ ] **TaskController a zobrazenie úloh (Blade) – krok po kroku:**
-  - **Práve prebieha:** Krok 1 – Vytvorenie čistého `TaskController` cez `php artisan make:controller TaskController`.
-  - **Nasleduje:** Krok 2 – Tvorba prvej metódy `index()` a prepojenie s `routes/web.php`.
-  - **Nasleduje:** Krok 3 – Vytvorenie prvej Blade šablóny pre zoznam úloh a odovzdanie dát z kontroléra.
+### Na čom budeme pokračovať nabudúce:
+- [ ] **Krok 4 – Detail úlohy (metóda `show()`):**
+  - Vytvorenie metódy `show($id)` v `TaskController`.
+  - Route Model Binding (ako Laravel sám nájde úlohu podľa ID).
+  - Vytvorenie šablóny `tasks/show.blade.php` a preklik zo zoznamu úloh na detail.
 
 
 ## Foundational Context
