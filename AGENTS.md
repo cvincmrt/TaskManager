@@ -24,11 +24,18 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
 - [x] **Routing:** zaregistrovaná pomenovaná routa `tasks.index` v `routes/web.php`.
 - [x] **Blade View:** základná šablóna `resources/views/tasks/index.blade.php` s výpisom úloh a relácií.
 
-### Na čom budeme pokračovať nabudúce:
-- [ ] **Krok 4 – Detail úlohy (metóda `show()`):**
-  - Vytvorenie metódy `show($id)` v `TaskController`.
-  - Route Model Binding (ako Laravel sám nájde úlohu podľa ID).
-  - Vytvorenie šablóny `tasks/show.blade.php` a preklik zo zoznamu úloh na detail.
+- [x] **Krok 4 – Detail úlohy (metóda `show()`):**
+  - Vytvorenie metódy `show(Task $task)` v `TaskController`.
+  - Route Model Binding a Lazy Eager Loading (`$task->load(...)`).
+  - Vytvorenie šablóny `tasks/show.blade.php`, ošetrenie null assignee a preklik zo zoznamu úloh na detail pomocou `route('tasks.show', $task)`.
+
+### Na čom budeme pokračovať nabudúce (alebo hneď):
+- [ ] **Krok 5 – Vytvorenie novej úlohy (metódy `create()` a `store()`):**
+  - Routy `tasks.create` (`GET /tasks/create`) a `tasks.store` (`POST /tasks`).
+  - Metóda `create()` v `TaskController` (načítanie používateľov pre výber riešiteľa).
+  - Formulár `tasks/create.blade.php` s `@csrf` tokenom.
+  - Metóda `store(Request $request)`: validácia vstupov a bezpečné vytvorenie záznamu.
+  - Flash správa a presmerovanie na detail / zoznam úloh.
 
 
 ## Foundational Context
