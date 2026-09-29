@@ -29,13 +29,21 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - Route Model Binding a Lazy Eager Loading (`$task->load(...)`).
   - Vytvorenie šablóny `tasks/show.blade.php`, ošetrenie null assignee a preklik zo zoznamu úloh na detail pomocou `route('tasks.show', $task)`.
 
+- [x] **Bootstrap a centrálny Blade Layout:**
+  - Vytvorenie hlavného layoutu `resources/views/layouts/app.blade.php` s Bootstrap 5 CDN a `@yield('content')`.
+  - Prepojenie existujúcich pohľadov cez `@extends('layouts.app')` a `@section('content')`.
+
+- [x] **Krok 5 – Príprava formulára pre vytvorenie úlohy (`create`):**
+  - Routy `tasks.create` (`GET /tasks/create`) a `tasks.store` (`POST /tasks`) v `routes/web.php` (špecifická cesta pred parametrickou).
+  - Metóda `create()` v `TaskController` (načítanie používateľov `User::all()`).
+  - Formulár `resources/views/tasks/create.blade.php` v Bootstrap štýle, CSRF ochrana (`@csrf`), zachovanie vstupov cez `old()` a zobrazenie chýb cez `@error`.
+
 ### Na čom budeme pokračovať nabudúce (alebo hneď):
-- [ ] **Krok 5 – Vytvorenie novej úlohy (metódy `create()` a `store()`):**
-  - Routy `tasks.create` (`GET /tasks/create`) a `tasks.store` (`POST /tasks`).
-  - Metóda `create()` v `TaskController` (načítanie používateľov pre výber riešiteľa).
-  - Formulár `tasks/create.blade.php` s `@csrf` tokenom.
-  - Metóda `store(Request $request)`: validácia vstupov a bezpečné vytvorenie záznamu.
-  - Flash správa a presmerovanie na detail / zoznam úloh.
+- [ ] **Krok 5.4 – Spracovanie a uloženie úlohy (metóda `store()`):**
+  - Metóda `store(Request $request)` v `TaskController`: validácia vstupov (`required`, `exists:users,id`, `in:...`, `date`).
+  - Doplnenie autora (`creator_id`) a vytvorenie záznamu cez `Task::create()`.
+  - Flash správa a presmerovanie na `tasks.index` (`with('success', ...)`).
+  - Zobrazenie flash správy v layoute `app.blade.php` alebo v zozname úloh.
 
 
 ## Foundational Context
