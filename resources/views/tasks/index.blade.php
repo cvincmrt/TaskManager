@@ -22,6 +22,8 @@
                 <div>
                     <span class="badge bg-secondary">{{ $task->status }}</span>
                     <span class="badge bg-info text-dark">{{ $task->priority }}</span>
+                    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-outline-primary ms-2">Upraviť</a>
+
                 </div>
             </li>
         @endforeach

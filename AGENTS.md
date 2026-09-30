@@ -33,17 +33,30 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - Vytvorenie hlavného layoutu `resources/views/layouts/app.blade.php` s Bootstrap 5 CDN a `@yield('content')`.
   - Prepojenie existujúcich pohľadov cez `@extends('layouts.app')` a `@section('content')`.
 
-- [x] **Krok 5 – Príprava formulára pre vytvorenie úlohy (`create`):**
-  - Routy `tasks.create` (`GET /tasks/create`) a `tasks.store` (`POST /tasks`) v `routes/web.php` (špecifická cesta pred parametrickou).
-  - Metóda `create()` v `TaskController` (načítanie používateľov `User::all()`).
-  - Formulár `resources/views/tasks/create.blade.php` v Bootstrap štýle, CSRF ochrana (`@csrf`), zachovanie vstupov cez `old()` a zobrazenie chýb cez `@error`.
-
-### Na čom budeme pokračovať nabudúce (alebo hneď):
-- [ ] **Krok 5.4 – Spracovanie a uloženie úlohy (metóda `store()`):**
-  - Metóda `store(Request $request)` v `TaskController`: validácia vstupov (`required`, `exists:users,id`, `in:...`, `date`).
+- [x] **Krok 5 – Vytvorenie a uloženie úlohy (`create` a `store`):**
+  - Routy `tasks.create` a `tasks.store` v `routes/web.php`.
+  - Metódy `create()` a `store(Request $request)` v `TaskController`: validácia vstupov (`required`, `exists:users,id`, `in:...`, `date`).
   - Doplnenie autora (`creator_id`) a vytvorenie záznamu cez `Task::create()`.
   - Flash správa a presmerovanie na `tasks.index` (`with('success', ...)`).
-  - Zobrazenie flash správy v layoute `app.blade.php` alebo v zozname úloh.
+  - Zobrazenie flash správy v layoute `app.blade.php`.
+
+- [x] **Krok 6.1 až 6.3 – Príprava formulára pre editáciu úlohy (`edit`):**
+  - Routy `tasks.edit` (`GET /tasks/{task}/edit`) a `tasks.update` (`PUT /tasks/{task}`) v `routes/web.php`.
+  - Metóda `edit(Task $task)` v `TaskController` (odovzdanie `$task` a `$users = User::all()`).
+  - Tlačidlo „Upraviť“ v `resources/views/tasks/index.blade.php` s preklikom na `route('tasks.edit', $task)`.
+  - Formulár `resources/views/tasks/edit.blade.php` s `@method('PUT')`, predvyplnením dát cez `old('pole', $task->pole)` a otestovaným zobrazením v prehliadači.
+
+### Na čom budeme pokračovať nabudúce (alebo hneď):
+- [ ] **Krok 6.4 – Spracovanie aktualizácie úlohy (metóda `update()`):**
+  - Vytvorenie metódy `update(Request $request, Task $task)` v `TaskController`.
+  - Validácia odoslaných dát z editačného formulára.
+  - Uloženie zmien cez `$task->update($validated)`.
+  - Flash správa a presmerovanie na `tasks.index` (`with('success', 'Úloha bola úspešne upravená!')`).
+  - Otestovanie uloženia upravených údajov v prehliadači.
+- [ ] **Krok 7 – Zmazanie úlohy (metóda `destroy()`):**
+  - Routa `tasks.destroy` (`DELETE /tasks/{task}`).
+  - Formulár / tlačidlo s `@method('DELETE')` a potvrdením zmazania.
+  - Metóda `destroy(Task $task)` v `TaskController` a `$task->delete()`.
 
 
 ## Foundational Context
