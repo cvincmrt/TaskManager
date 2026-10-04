@@ -19,7 +19,7 @@
             <div class="d-flex align-items-center">
                 @auth
                     <span class="navbar-text text-white me-3">
-                        Prihlásený: <strong>{{ auth()->user()->name }}</strong>
+                        Prihlásený: <a href=" {{ route('profile.edit') }} "><strong>{{ auth()->user()->name }}</strong></a>
                     </span>
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
@@ -27,7 +27,7 @@
                     </form>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm me-2">Prihlásiť sa</a>
-        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Registrácia</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Registrácia</a>
                 @endauth
             </div>
         </div>

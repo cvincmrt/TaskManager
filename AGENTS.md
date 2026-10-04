@@ -81,7 +81,13 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - Vytvorenie dedikovaného `RegisterController` s metódami `create()` a `store()`.
   - Vytvorenie používateľa cez `User::create()` a automatické prihlásenie cez `Auth::login($user)`.
   - Formulár `resources/views/auth/register.blade.php` v Bootstrap dizajne a prepojenie s navigáciou.
-- [ ] **Krok 9.4 – Preskúmanie Laravel Breeze (Možnosť B):**
+- [x] **Krok 9.4 – Správa profilu a zmena hesla (Profile):**
+  - Routy `/profile` (GET, PUT) a `/profile/password` (PUT) pod `middleware('auth')`.
+  - `ProfileController` s metódami `edit()`, `update()` a `updatePassword()`.
+  - Ignorovanie vlastného ID pri kontrole unikátnosti emailu (`unique:users,email,` . $user->id).
+  - Vstavané pravidlo `current_password` na overenie pôvodného hesla.
+  - Šablóna `resources/views/profile/edit.blade.php` v Bootstrap dizajne a prepojenie z navigácie.
+- [ ] **Krok 9.5 – Preskúmanie Laravel Breeze (Možnosť B):**
   - Predstavenie a porovnanie s hotovým ekosystémom Breeze.
 
 
