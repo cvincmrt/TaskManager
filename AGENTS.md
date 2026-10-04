@@ -46,17 +46,43 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - Tlačidlo „Upraviť“ v `resources/views/tasks/index.blade.php` s preklikom na `route('tasks.edit', $task)`.
   - Formulár `resources/views/tasks/edit.blade.php` s `@method('PUT')`, predvyplnením dát cez `old('pole', $task->pole)` a otestovaným zobrazením v prehliadači.
 
-### Na čom budeme pokračovať nabudúce (alebo hneď):
-- [ ] **Krok 6.4 – Spracovanie aktualizácie úlohy (metóda `update()`):**
+- [x] **Krok 6.4 – Spracovanie aktualizácie úlohy (metóda `update()`):**
   - Vytvorenie metódy `update(Request $request, Task $task)` v `TaskController`.
   - Validácia odoslaných dát z editačného formulára.
   - Uloženie zmien cez `$task->update($validated)`.
-  - Flash správa a presmerovanie na `tasks.index` (`with('success', 'Úloha bola úspešne upravená!')`).
+  - Flash správa a presmerovanie na `tasks.index` (`with('success', 'Úloha úspešne upravená!!!')`).
   - Otestovanie uloženia upravených údajov v prehliadači.
-- [ ] **Krok 7 – Zmazanie úlohy (metóda `destroy()`):**
+
+- [x] **Krok 7 – Zmazanie úlohy (metóda `destroy()`):**
   - Routa `tasks.destroy` (`DELETE /tasks/{task}`).
-  - Formulár / tlačidlo s `@method('DELETE')` a potvrdením zmazania.
+  - Formulár / tlačidlo s `@method('DELETE')` a potvrdením zmazania (JavaScript `confirm()`).
   - Metóda `destroy(Task $task)` v `TaskController` a `$task->delete()`.
+  - Presmerovanie na `tasks.index` s úspešnou flash správou.
+
+### Na čom budeme pokračovať:
+- [x] **8.1 Route::resource:** Nahradenie 7 samostatných rout v `web.php` jedným príkazom `Route::resource('tasks', TaskController::class)`.
+- [x] **8.2 Form Request Validácia:** Vytvorenie dedikovanej triedy `TaskRequest` pre validáciu a vyčistenie metód `store()` a `update()` v kontroléri.
+- [x] **8.4 Filtrovanie a vyhľadávanie úloh:** Dynamické filtrovanie cez Eloquent query podľa stavu (`status`) cez GET query parametre s využitím `withQueryString()`.
+
+### Aktuálny plán – Krok 9: Autentifikácia (Auth)
+- [x] **Krok 9.1 – Vlastný Auth (Možnosť A):**
+  - [x] **9.1.1 Vytvorenie AuthController:** Metódy `showLoginForm()`, `login(LoginRequest $request)` a `logout(Request $request)`.
+  - [x] **9.1.2 Routovanie:** Routy `login` (GET/POST) a `logout` (POST) v `routes/web.php`.
+  - [x] **9.1.3 Blade Pohľad pre Login:** `resources/views/auth/login.blade.php` v Bootstrap dizajne.
+  - [x] **9.1.4 Navigácia a stav prihlásenia:** Zobrazenie prihláseného mena a tlačidla odhlásenia v `layouts/app.blade.php` cez `@auth` a `@else`.
+  - [x] **9.1.5 Ochrana úloh pomocou Middleware:** Uzamknutie `/tasks` cez `->middleware('auth')`.
+  - [x] **9.1.6 Reálny autor úlohy:** Nahradenie `User::first()->id` za `auth()->id()` v `TaskController@store`.
+- [x] **Krok 9.2 – Autorizácia (Policies):**
+  - Vytvorenie `TaskPolicy` (`update`, `delete` na základe `$user->id === $task->creator_id`).
+  - Ochrana metód v kontroléri cez `Gate::authorize()`.
+  - Podmienené zobrazenie tlačidiel v `index.blade.php` cez `@can`.
+- [x] **Krok 9.3 – Registrácia používateľa (Register):**
+  - Vytvorenie dedikovaného `RegisterRequest` s pravidlami (`name`, `email` unique, `password` confirmed).
+  - Vytvorenie dedikovaného `RegisterController` s metódami `create()` a `store()`.
+  - Vytvorenie používateľa cez `User::create()` a automatické prihlásenie cez `Auth::login($user)`.
+  - Formulár `resources/views/auth/register.blade.php` v Bootstrap dizajne a prepojenie s navigáciou.
+- [ ] **Krok 9.4 – Preskúmanie Laravel Breeze (Možnosť B):**
+  - Predstavenie a porovnanie s hotovým ekosystémom Breeze.
 
 
 ## Foundational Context
