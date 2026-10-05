@@ -37,6 +37,12 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
+        //zamknutie ulohy ked je splnena
+        if($task->status === 'completed')
+        {
+            return false;
+        }
+
         return $user->id === $task->creator_id;
     }
 
@@ -45,6 +51,11 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
+        if($task->status === 'completed')
+        {
+            return false;
+        }
+
         return $user->id === $task->creator_id;
     }
 
@@ -62,5 +73,21 @@ class TaskPolicy
     public function forceDelete(User $user, Task $task): bool
     {
         return false;
+    }
+
+    public function changeStatus(User $user, Task $task)
+    {
+        if($task->status === 'completed')
+        {
+            return false;
+        }
+
+        return $user->id === $task->creator_id || $user->id === $task->assigned_to_id;
+
+    }
+
+    public function assign(User $user, Task $task)
+    {
+        return $task->assigned_to_id === null && $task->status !== 'completed';
     }
 }

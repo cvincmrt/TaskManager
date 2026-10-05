@@ -87,7 +87,17 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - Ignorovanie vlastného ID pri kontrole unikátnosti emailu (`unique:users,email,` . $user->id).
   - Vstavané pravidlo `current_password` na overenie pôvodného hesla.
   - Šablóna `resources/views/profile/edit.blade.php` v Bootstrap dizajne a prepojenie z navigácie.
-- [ ] **Krok 9.5 – Preskúmanie Laravel Breeze (Možnosť B):**
+- [x] **Krok 9.5 – Task Workflow a Uzamykanie úloh:**
+  - Rozšírenie `TaskPolicy`: `assign()` (priradenie voľnej neukončenej úlohy), `changeStatus()` (zmena stavu riešiteľom alebo autorom, zamknutie pri `completed`), `update()` a `delete()` (zamknutie pri `completed`).
+  - Routy `tasks.status` a `tasks.assign` (`PATCH`) v `routes/web.php` chránené pod `auth`.
+  - Metódy `changeStatus()` a `assign()` v `TaskController` s autorizáciou a validáciou.
+  - Dynamické akčné tlačidlá v `resources/views/tasks/show.blade.php`: „✋ Prevziať úlohu“, „🚀 Začať riešiť“, „✅ Dokončiť úlohu“ a indikátor zamknutia 🔒.
+- [ ] **Krok 10 – Komentáre k úlohám (Diskusia 1:N):**
+  - [x] **10.1 Vylepšenie detailu:** Bootstrap layout pre `tasks/show.blade.php`, akčné tlačidlá s autorizáciou (`@can`).
+  - [ ] **10.2 Model a migrácia Comment:** Tabuľka `comments` (`task_id`, `user_id`, `body`), Eloquent relácie `Task::comments()`, `Comment::task()`, `Comment::user()`.
+  - [ ] **10.3 Pridanie komentára:** Formulár a `CommentController@store`.
+  - [ ] **10.4 Zobrazenie diskusie:** Výpis komentárov s autorom a relatívnym časom (Carbon).
+- [ ] **Krok 11 – Preskúmanie Laravel Breeze (Možnosť B):**
   - Predstavenie a porovnanie s hotovým ekosystémom Breeze.
 
 

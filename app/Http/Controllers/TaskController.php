@@ -87,4 +87,28 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'Uloha bola zmazana!!!!');
     }
+
+    public function changeStatus(Request $request, Task $task)
+    {
+        Gate::authorize('changeStatus', $task);
+
+        $validated = $request->validate([
+            'status' => 'required|in:pending,in_progress,completed',
+        ]);
+
+        $task->update($validated);
+
+        return back()->with('success', 'Stav ulohy bol aktualizovany!!!');
+    }
+
+    public function assign(Task $task)
+    {
+        Gate::authorize('assign', $task);
+
+        $task->update([
+            'assigned_to_id' => auth()->id(),
+        ]);
+
+        return back()->with('success', 'Uloha ti bola uspesne pridelena!!!');
+    }
 }
