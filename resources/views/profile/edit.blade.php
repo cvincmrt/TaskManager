@@ -3,7 +3,12 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2 class="mb-4">Môj profil</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Môj profil</h2>
+        <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary">
+            &larr; Späť na zoznam úloh
+        </a>
+    </div>
 
         <!-- Karta 1: Osobné údaje -->
         <div class="card shadow-sm mb-4">
