@@ -4,6 +4,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 //verejne routy pre vsetkych (dostupne pre kazdeho)
@@ -34,6 +35,9 @@ Route::middleware('auth')->group(function()
     //routy pre ciastocne ulohy(zmena stavu, pridanie riesitela)
     Route::patch('/tasks/{task}/status', [TaskController::class, 'changeStatus'])->name('tasks.status');
     Route::patch('/tasks/{task}/assign', [TaskController::class, 'assign'])->name('tasks.assign');
+
+    //komentare
+    Route::post('/tasks/{task}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 

@@ -92,11 +92,11 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - Routy `tasks.status` a `tasks.assign` (`PATCH`) v `routes/web.php` chránené pod `auth`.
   - Metódy `changeStatus()` a `assign()` v `TaskController` s autorizáciou a validáciou.
   - Dynamické akčné tlačidlá v `resources/views/tasks/show.blade.php`: „✋ Prevziať úlohu“, „🚀 Začať riešiť“, „✅ Dokončiť úlohu“ a indikátor zamknutia 🔒.
-- [ ] **Krok 10 – Komentáre k úlohám (Diskusia 1:N):**
+- [x] **Krok 10 – Komentáre k úlohám (Diskusia 1:N):**
   - [x] **10.1 Vylepšenie detailu:** Bootstrap layout pre `tasks/show.blade.php`, akčné tlačidlá s autorizáciou (`@can`).
-  - [ ] **10.2 Model a migrácia Comment:** Tabuľka `comments` (`task_id`, `user_id`, `body`), Eloquent relácie `Task::comments()`, `Comment::task()`, `Comment::user()`.
-  - [ ] **10.3 Pridanie komentára:** Formulár a `CommentController@store`.
-  - [ ] **10.4 Zobrazenie diskusie:** Výpis komentárov s autorom a relatívnym časom (Carbon).
+  - [x] **10.2 Model a migrácia Comment:** Tabuľka `comments` (`task_id`, `user_id`, `body`), Eloquent relácie `Task::comments()`, `Comment::task()`, `Comment::user()`, `User::comments()`.
+  - [x] **10.3 Pridanie komentára:** Formulár a `CommentController@store` s validáciou a reláciou.
+  - [x] **10.4 Zobrazenie diskusie:** Výpis komentárov s počtom, autorom a relatívnym časom (Carbon `diffForHumans()`).
 - [ ] **Krok 11 – Preskúmanie Laravel Breeze (Možnosť B):**
   - Predstavenie a porovnanie s hotovým ekosystémom Breeze.
 

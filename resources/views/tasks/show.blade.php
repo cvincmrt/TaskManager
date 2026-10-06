@@ -104,6 +104,54 @@
             </div>
         </div>
 
+                <!-- Sekcia komentárov -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">💬 Diskusia ({{ $task->comments->count() }})</h5>
+            </div>
+
+            <div class="card-body">
+                <!-- Zoznam komentárov -->
+                @forelse($task->comments as $comment)
+                    <div class="border rounded p-3 mb-3 bg-light">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <strong>{{ $comment->user->name }}</strong>
+                            <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                        </div>
+                        <p class="mb-0 text-secondary" style="white-space: pre-line;">{{ $comment->body }}</p>
+                    </div>
+                @empty
+                    <p class="text-muted text-center py-3">K tejto úlohe zatiaľ nikto nenapísal žiadny komentár.</p>
+                @endforelse
+
+                <hr class="my-4">
+
+                <!-- Formulár na nový komentár -->
+                <form action="{{ route('comments.store', $task) }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="body" class="form-label fw-bold">Pridať komentár:</label>
+                        <textarea 
+                            name="body" 
+                            id="body" 
+                            rows="3" 
+                            class="form-control @error('body') is-invalid @enderror" 
+                            placeholder="Napíš svoj komentár k úlohe..."
+                        >{{ old('body') }}</textarea>
+                        
+                        @error('body')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Odoslať komentár
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
     </div>
 </div>
 @endsection

@@ -31,7 +31,7 @@ class TaskController extends Controller
     {
         // mame $task, ale nemame autora a ani riesitela potrebujeme dotahat relacie
 
-        $task->load(['creator', 'assignee']);
+        $task->load(['creator', 'assignee', 'comments.user']);
 
         return view('tasks.show', compact('task'));
     }
