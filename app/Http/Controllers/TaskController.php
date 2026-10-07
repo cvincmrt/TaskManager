@@ -20,6 +20,16 @@ class TaskController extends Controller
             $query->where('status', $request->status);
         }
 
+        //dalsi filter zalozky $request->view Vsetko co je za otaznikom viem k tomu pristupit cez -> napr. /tasks?view=created
+        if($request->view === 'created')
+        {
+            $query->createdBy(auth()->id());
+        }elseif($request->view === 'assigned')
+            {
+                $query->assignedTo(auth()->id());
+            }
+
+
         // 3. Spustíme stránkovanie a pridáme kúzlo withQueryString()
         $tasks = $query->paginate(5)->withQueryString();
 

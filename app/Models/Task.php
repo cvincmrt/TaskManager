@@ -37,4 +37,15 @@ class Task extends Model
         return $this->hasMany(Comment::class);
     }
 
+    //Scope pre ulohy vytvorene uzivatelom
+    public function scopeCreatedBy($query, $userId)
+    {
+        return $query->where('creator_id', $userId);
+    }
+
+    //Scope pre ulohy priradene uzivatelovi
+    public function scopeAssignedTo($query, $userId)
+    {
+        return $query->where('assigned_to_id', $userId);
+    }
 }

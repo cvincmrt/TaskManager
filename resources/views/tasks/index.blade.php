@@ -6,6 +6,27 @@
         <a href="{{ route('tasks.create') }}" class="btn btn-primary">Pridať úlohu</a>
     </div>
 
+    <div class="btn-group mb-3" role="group">
+    <!-- 1. Všetky úlohy -->
+    <a href="{{ route('tasks.index') }}" 
+       class="btn {{ !request('view') ? 'btn-primary' : 'btn-outline-primary' }}">
+        🔘 Všetky úlohy
+    </a>
+
+    <!-- 2. Moje vytvorené -->
+    <a href="{{ route('tasks.index', ['view' => 'created']) }}" 
+       class="btn {{ request('view') === 'created' ? 'btn-primary' : 'btn-outline-primary' }}">
+        👤 Moje vytvorené
+    </a>
+
+    <!-- 3. Priradené mne -->
+    <a href="{{ route('tasks.index', ['view' => 'assigned']) }}" 
+       class="btn {{ request('view') === 'assigned' ? 'btn-primary' : 'btn-outline-primary' }}">
+        📌 Priradené mne
+    </a>
+</div>
+
+
     <div class="card mb-3 p-3 bg-light">
         <form method="GET" action="{{ route('tasks.index') }}" class="row g-2 align-items-center">
             <div class="col-auto">
