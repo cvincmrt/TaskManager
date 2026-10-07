@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Gate;
+
 
 class CommentController extends Controller
 {
@@ -20,5 +23,14 @@ class CommentController extends Controller
 
         return back()->with('success', 'Komentar bol uspesne pridany!!!');
 
+    }
+
+    public function destroy(Comment $comment)
+    {
+        Gate::authorize('delete',$comment);
+
+        $comment->delete();
+
+        return back()->with('success', 'komentar bol uspesne zmazany');
     }
 }

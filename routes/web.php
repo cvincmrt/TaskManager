@@ -38,6 +38,9 @@ Route::middleware('auth')->group(function()
 
     //komentare
     Route::post('/tasks/{task}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+    //zmazanie komentara
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 

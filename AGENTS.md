@@ -97,6 +97,7 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
   - [x] **10.2 Model a migrácia Comment:** Tabuľka `comments` (`task_id`, `user_id`, `body`), Eloquent relácie `Task::comments()`, `Comment::task()`, `Comment::user()`, `User::comments()`.
   - [x] **10.3 Pridanie komentára:** Formulár a `CommentController@store` s validáciou a reláciou.
   - [x] **10.4 Zobrazenie diskusie:** Výpis komentárov s počtom, autorom a relatívnym časom (Carbon `diffForHumans()`).
+  - [x] **10.5 Zmazanie komentára:** `CommentPolicy@delete` (autor komentára alebo autor úlohy), `CommentController@destroy`, routa `DELETE /comments/{comment}` a chránené tlačidlo v šablóne.
 - [ ] **Krok 11 – Preskúmanie Laravel Breeze (Možnosť B):**
   - Predstavenie a porovnanie s hotovým ekosystémom Breeze.
 

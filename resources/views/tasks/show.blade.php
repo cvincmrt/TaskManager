@@ -114,12 +114,23 @@
                 <!-- Zoznam komentárov -->
                 @forelse($task->comments as $comment)
                     <div class="border rounded p-3 mb-3 bg-light">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
                             <strong>{{ $comment->user->name }}</strong>
-                            <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                            <small class="text-muted ms-2">{{ $comment->created_at->diffForHumans() }}</small>
                         </div>
-                        <p class="mb-0 text-secondary" style="white-space: pre-line;">{{ $comment->body }}</p>
+                        @can('delete', $comment)
+                            <form action="{{ route('comments.destroy', $comment) }}" method="POST" onsubmit="return confirm('Naozaj chceš zmazať tento komentár?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    &times; Zmazať
+                                </button>
+                            </form>
+                        @endcan
                     </div>
+                    <p class="mb-0 text-secondary" style="white-space: pre-line;">{{ $comment->body }}</p>
+                </div>
                 @empty
                     <p class="text-muted text-center py-3">K tejto úlohe zatiaľ nikto nenapísal žiadny komentár.</p>
                 @endforelse
