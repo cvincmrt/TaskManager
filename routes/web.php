@@ -16,3 +16,5 @@ Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show')
 
 Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
 Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+
+
