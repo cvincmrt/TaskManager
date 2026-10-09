@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
-                <h4 class="mb-0">Vytvoriť novú úlohu</h4>
+                <h4 class="mb-0">Uprav ulohu {{ $task->title }}</h4>
             </div>
             <div class="card-body">
                 <form action="{{ route('tasks.update', $task) }}" method="POST">
